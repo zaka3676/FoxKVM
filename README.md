@@ -2,4 +2,6 @@
 simple python script to share one keyboard between several computers via LAN
 
 # TODO:
-Add gui
+Improve GUI / Add all features of an app to gui
+Fix bug when global hotkey activates just by pressing one key from the hotkey combination
+Add tray icon
