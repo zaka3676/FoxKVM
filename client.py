@@ -8,12 +8,12 @@ keyboard = Controller()
 
 
 class clientStart():
-    def Start(self):
+    def Start(self, port, ip):
         self.hotkey_combination = '<ctrl>+<shift>+q'
         
         self.SEPARATOR = "{|}"
-        self.host = "192.168.0.110" # Local adress of the server
-        self.port = 5001
+        self.host = ip
+        self.port = port 
         
         logging.basicConfig(level=logging.DEBUG)
         

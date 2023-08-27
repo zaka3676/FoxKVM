@@ -39,7 +39,7 @@ class FoxKVM(Wi.QWidget):
         self.IPEntry = Wi.QLineEdit("")
         self.IPEntry.setPlaceholderText("Server local IP")
         self.client_page_layout.addWidget(self.IPEntry)
-        self.PortEntry = Wi.QLineEdit("")
+        self.PortEntry = Wi.QLineEdit("5001")
         self.PortEntry.setPlaceholderText("PORT")
         self.client_page_layout.addWidget(self.PortEntry)
         self.ConnectButton = Wi.QPushButton("Connect to server")
