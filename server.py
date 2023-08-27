@@ -94,3 +94,5 @@ class serverStart():
     def on_release(self, key):
         self.send_event("release", key)
             
+#test = serverStart()
+#test.Start(5001)
