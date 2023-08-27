@@ -8,7 +8,7 @@ keyboard = Controller()
 
 
 class clientStart():
-    def __init__(self):
+    def Start(self):
         self.hotkey_combination = '<ctrl>+<shift>+q'
         
         self.SEPARATOR = "{|}"

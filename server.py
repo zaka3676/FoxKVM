@@ -5,7 +5,7 @@ from lib import specialKeys
 from pynput import keyboard
 
 class serverStart():
-    def __init__(self):
+    def Start(self, port):
         print("serverStart was started")
         self.hotkey_combination = '<ctrl>+<shift>+q'
         self.switch = False
@@ -15,7 +15,7 @@ class serverStart():
         self.SEPARATOR = "{|}"
 
         self.host = "0.0.0.0"
-        self.port = 5001
+        self.port = port
         self.BUFFER_SIZE = 14
 
         self.s = socket.socket()
