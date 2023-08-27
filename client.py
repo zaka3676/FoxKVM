@@ -79,5 +79,3 @@ class clientStart():
         
     def for_canonical(self, f):
         return lambda k: f(self.hotkey_listener.canonical(k))
-
-clientStart()

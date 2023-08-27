@@ -94,5 +94,3 @@ class serverStart():
     def on_release(self, key):
         self.send_event("release", key)
             
-
-serverStart()
