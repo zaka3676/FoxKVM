@@ -2,7 +2,9 @@ import socket
 import logging
 import threading
 from lib import specialKeys
-from lib.pynput import keyboard
+from lib.pynputMacFixed.lib.pynput import keyboard
+# from pynput import keyboard
+
 
 class serverStart():
     def Start(self, port):
@@ -16,7 +18,7 @@ class serverStart():
 
         self.host = "0.0.0.0"
         self.port = port
-        self.BUFFER_SIZE = 14
+        self.BUFFER_SIZE = 30
 
         self.s = socket.socket()
         logging.basicConfig(level=logging.DEBUG)
@@ -77,11 +79,12 @@ class serverStart():
             self.listener_stop_event.wait()
             
     def send_event(self, event_type, key):
-        if key != None:
+        if key is not None:
             if hasattr(key, "char"):
                 strKey = key.char
             else:
-                strKey = specialKeys.getId.get(key)
+                strKey = str(key)
+
 
             data = f'{event_type}{self.SEPARATOR}{strKey}'.encode().ljust(self.BUFFER_SIZE, b'\x00')
             self.client_socket.sendall(data)
@@ -94,5 +97,5 @@ class serverStart():
     def on_release(self, key):
         self.send_event("release", key)
             
-#test = serverStart()
-#test.Start(5001)
+test = serverStart()
+test.Start(5001)

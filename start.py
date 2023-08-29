@@ -1,9 +1,9 @@
-from PySide6.QtCore import Qt, QEvent, QObject, Slot, Signal, QKeyCombination
-from PySide6.QtGui import QKeySequence
+from PySide6.QtCore import Qt, Slot
 import PySide6.QtWidgets as Wi
 import client
 import server
 import sys
+
 
 class FoxKVM(Wi.QWidget):
     def __init__(self):
@@ -13,16 +13,14 @@ class FoxKVM(Wi.QWidget):
         self.setGeometry(100, 100, 200, 230)
         
         self.typeClient = Wi.QRadioButton("Client")
-        self.typeClient.clicked.connect(self.updPage)
+        self.typeClient.clicked.connect(self.upd_page)
         self.typeClient.toggle()
         
         self.typeServer = Wi.QRadioButton("Server")
-        self.typeServer.clicked.connect(self.updPage)
+        self.typeServer.clicked.connect(self.upd_page)
         
         self.message = Wi.QLabel("Select connection type:")
         self.message.alignment = Qt.AlignCenter
-        
-        
 
         self.layout = Wi.QVBoxLayout(self)
         self.layout.addWidget(self.message)
@@ -43,9 +41,8 @@ class FoxKVM(Wi.QWidget):
         self.PortEntry.setPlaceholderText("PORT")
         self.client_page_layout.addWidget(self.PortEntry)
         self.ConnectButton = Wi.QPushButton("Connect to server")
-        self.ConnectButton.clicked.connect(self.connectToServer)
+        self.ConnectButton.clicked.connect(self.connect_to_server)
         self.client_page_layout.addWidget(self.ConnectButton)
-        
 
         self.server_page = Wi.QWidget()
         self.server_page_layout = Wi.QVBoxLayout(self.server_page)
@@ -59,23 +56,18 @@ class FoxKVM(Wi.QWidget):
         self.ServerPortEntry.setPlaceholderText("PORT")
         self.server_page_layout.addWidget(self.ServerPortEntry)
         self.StartButton = Wi.QPushButton("Start server")
-        self.StartButton.clicked.connect(self.startServer)
+        self.StartButton.clicked.connect(self.start_server)
         self.server_page_layout.addWidget(self.StartButton)
-        
-        
 
         self.stacked_widget.addWidget(self.client_page)
         self.stacked_widget.addWidget(self.server_page)
 
-        self.updPage(True)  # Call this initially to set up the UI
-        
-        
+        self.upd_page()  # Call this initially to set up the UI
+
     def on_hotkey_button_click(self):
         self.hotkey_button.setText("Press new hotkey")
-        self.hotkey_listener.start_listening()
-        self.hotkey_button.setText(self.hotkey_listener.current_hotkey)
         
-    def updPage(self, checked):
+    def upd_page(self):
         if self.typeClient.isChecked():
             print("Client")
             self.stacked_widget.setCurrentWidget(self.client_page)
@@ -83,16 +75,15 @@ class FoxKVM(Wi.QWidget):
             self.stacked_widget.setCurrentWidget(self.server_page)
             print("Server")
 
-
     @Slot()
-    def connectToServer(self):
-        clientInstence = client.clientStart()
-        clientInstence.Start(int(self.PortEntry.text()), self.IPEntry.text())
+    def connect_to_server(self):
+        client_instance = client.clientStart()
+        client_instance.Start(int(self.PortEntry.text()), self.IPEntry.text())
         
     @Slot()
-    def startServer(self):
-        serverInstence = server.serverStart()
-        serverInstence.Start(int(self.ServerPortEntry.text()))
+    def start_server(self):
+        server_instance = server.serverStart()
+        server_instance.Start(int(self.ServerPortEntry.text()))
 
 
 if __name__ == "__main__":
@@ -101,4 +92,4 @@ if __name__ == "__main__":
     widget = FoxKVM()
     widget.show()
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

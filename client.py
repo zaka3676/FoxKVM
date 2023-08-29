@@ -1,5 +1,5 @@
 import socket
-from pynput.keyboard import Key, Controller, Listener, HotKey
+from lib.pynputMacFixed.lib.pynput.keyboard import Key, Controller, Listener, HotKey
 import logging
 from lib import specialKeys
 import threading
@@ -19,7 +19,7 @@ class clientStart():
         
         # create the client socket
         self.s = socket.socket()
-        self.BUFFER_SIZE = 14
+        self.BUFFER_SIZE = 30
         
         
         print("[!] Keyboard share client enabled")
@@ -46,7 +46,7 @@ class clientStart():
             action, key = self.received.split(self.SEPARATOR)
             
             if len(key) > 1:
-                key = specialKeys.getKey.get(int(key))
+                key = specialKeys.getKey.get(key)
             
             if action == "press":
                 self.press(key)
