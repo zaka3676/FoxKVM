@@ -1,7 +1,6 @@
 import socket
 import logging
 import threading
-from lib import specialKeys
 from lib.pynputMacFixed.lib.pynput import keyboard
 # from pynput import keyboard
 
@@ -96,6 +95,3 @@ class serverStart():
 
     def on_release(self, key):
         self.send_event("release", key)
-            
-test = serverStart()
-test.Start(5001)
