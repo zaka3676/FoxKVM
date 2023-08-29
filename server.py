@@ -2,7 +2,7 @@ import socket
 import logging
 import threading
 from lib import specialKeys
-from pynput import keyboard
+from lib.pynput import keyboard
 
 class serverStart():
     def Start(self, port):
