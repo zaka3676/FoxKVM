@@ -5,26 +5,27 @@ from lib.pynputMacFixed.lib.pynput import keyboard
 # from pynput import keyboard
 
 
-class serverStart():
-    def Start(self, port):
-        print("serverStart was started")
+class ServerStart:
+    def __init__(self):
         self.hotkey_combination = '<ctrl>+<shift>+q'
         self.switch = False
         self.listener_stop_event = threading.Event()
-        self.listener = None # Initialize listener instance
-        
+        self.listener = None  # Initialize listener instance
         self.SEPARATOR = "{|}"
-
         self.host = "0.0.0.0"
-        self.port = port
         self.BUFFER_SIZE = 30
-
         self.s = socket.socket()
+        self.port = 5001
+
+    def start(self, port):
+        print("serverStart was started")
+
+        self.port = port
+
         logging.basicConfig(level=logging.DEBUG)
         self.bind()
         self.run()
         threading.Thread(target=self.hotkey_listener).start()
-        
 
     def bind(self):
         self.s.bind((self.host, self.port))
@@ -42,9 +43,8 @@ class serverStart():
             print(f"[!] Received from {self.address}: " + self.received)
             if self.received == 'hotkey':
                 self.toggle_listener()
-        
-            
-        ## HOTKEY
+
+        # HOTKEY
             
     def hotkey_listener(self):
         self.hotkey = keyboard.HotKey(
@@ -71,7 +71,7 @@ class serverStart():
     def for_canonical(self, f):
         return lambda k: f(self.hotkey_listener.canonical(k))
     
-        ## LISTENER FUNCTIONALITY
+        # LISTENER FUNCTIONALITY
         
     def on_press_listener(self):
         with keyboard.Listener(suppress=True, on_press=self.on_press, on_release=self.on_release) as self.listener:
@@ -80,12 +80,11 @@ class serverStart():
     def send_event(self, event_type, key):
         if key is not None:
             if hasattr(key, "char"):
-                strKey = key.char
+                str_key = key.char
             else:
-                strKey = str(key)
+                str_key = str(key)
 
-
-            data = f'{event_type}{self.SEPARATOR}{strKey}'.encode().ljust(self.BUFFER_SIZE, b'\x00')
+            data = f'{event_type}{self.SEPARATOR}{str_key}'.encode().ljust(self.BUFFER_SIZE, b'\x00')
             self.client_socket.sendall(data)
 
             logging.debug('Key {0} was {1} and sent'.format(key, event_type))

@@ -82,8 +82,8 @@ class FoxKVM(Wi.QWidget):
         
     @Slot()
     def start_server(self):
-        server_instance = server.serverStart()
-        server_instance.Start(int(self.ServerPortEntry.text()))
+        server_instance = server.ServerStart()
+        server_instance.start(int(self.ServerPortEntry.text()))
 
 
 if __name__ == "__main__":
