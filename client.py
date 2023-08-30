@@ -1,5 +1,5 @@
 import socket
-from lib.pynputMacFixed.lib.pynput.keyboard import Key, Controller, Listener, HotKey
+from lib.pynputMacFixed.lib.pynput.keyboard import Controller, Listener, HotKey
 import logging
 from lib import specialKeys
 import threading
@@ -7,8 +7,8 @@ import threading
 keyboard = Controller()
 
 
-class clientStart():
-    def Start(self, port, ip):
+class ClientStart:
+    def start(self, port, ip):
         self.hotkey_combination = '<ctrl>+<shift>+q'
         
         self.SEPARATOR = "{|}"

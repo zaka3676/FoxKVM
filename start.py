@@ -77,8 +77,8 @@ class FoxKVM(Wi.QWidget):
 
     @Slot()
     def connect_to_server(self):
-        client_instance = client.clientStart()
-        client_instance.Start(int(self.PortEntry.text()), self.IPEntry.text())
+        client_instance = client.ClientStart()
+        client_instance.start(int(self.PortEntry.text()), self.IPEntry.text())
         
     @Slot()
     def start_server(self):
